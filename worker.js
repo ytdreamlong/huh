@@ -1,18 +1,18 @@
-// This tells Wrangler to grab the file at build time
-import imageData from "./random_art.png";
-
 export default {
-  async fetch(request, env, ctx) {
-    try {
-      // 'imageData' is now an ArrayBuffer automatically!
-      
-      // Your processing logic goes here...
-      
-      return new Response(imageData, {
-        headers: { "Content-Type": "image/png" }
-      });
-    } catch (e) {
-      return new Response("Error: " + e.message, { status: 500 });
+  async fetch(request, env) {
+    // env.ART_DATA will be our Base64 string
+    const base64String = env.ART_DATA;
+
+    // Convert Base64 back to binary
+    const binaryString = atob(base64String);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
     }
+
+    // Now 'bytes' is your image data!
+    return new Response(bytes, {
+      headers: { "Content-Type": "image/png" }
+    });
   }
 };
