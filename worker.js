@@ -1,18 +1,18 @@
 export default {
-  async fetch(request, env) {
-    // env.ART_DATA will be our Base64 string
-    const base64String = env.ART_DATA;
+  async fetch(request) {
+    const imgBBUrl = "https://i.ibb.co/6R4q6NMJ/random-art.png";
 
-    // Convert Base64 back to binary
-    const binaryString = atob(base64String);
-    const bytes = new Uint8Array(binaryString.length);
-    for (let i = 0; i < binaryString.length; i++) {
-      bytes[i] = binaryString.charCodeAt(i);
-    }
+    // Fetch the image from ImgBB
+    const imageResponse = await fetch(imgBBUrl);
 
-    // Now 'bytes' is your image data!
-    return new Response(bytes, {
-      headers: { "Content-Type": "image/png" }
-    });
+    // Create a new response so we can set our own headers
+    const response = new Response(imageResponse.body, imageResponse);
+    
+    // Add headers to make sure it displays correctly in BBCode [img] tags
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Content-Type", "image/png");
+    response.headers.set("Cache-Control", "public, max-age=604800");
+
+    return response;
   }
 };
