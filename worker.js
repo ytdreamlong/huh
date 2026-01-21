@@ -1,6 +1,6 @@
 export default {
   async fetch(request) {
-    const imgBBUrl = "https://i.ibb.co/CpH1NGVD/random-art.png";
+    const imgBBUrl = "https://ibb.co/ZRhnp7gp";
 
     // Fetch the image from ImgBB
     const imageResponse = await fetch(imgBBUrl);
