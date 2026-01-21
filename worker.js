@@ -1,6 +1,6 @@
 export default {
   async fetch(request) {
-    const imgBBUrl = "https://ibb.co/ZRhnp7gp";
+    const imgBBUrl = "https://cdn.discordapp.com/clan-badges/1317975081976332338/059741bbde35c502c39549f23de4dab8.png?size=16";
 
     // Fetch the image from ImgBB
     const imageResponse = await fetch(imgBBUrl);
